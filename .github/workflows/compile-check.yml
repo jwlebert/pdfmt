@@ -1,0 +1,26 @@
+name: Compile and test gate
+
+on:
+  pull_request:
+
+jobs:
+  compile-test-clippy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy
+
+      - name: Build workspace
+        run: cargo +stable build --workspace
+
+      - name: Test workspace
+        run: cargo +stable test --workspace
+
+      - name: Clippy workspace (warnings denied)
+        run: cargo +stable clippy --workspace --all-targets -- -D warnings
