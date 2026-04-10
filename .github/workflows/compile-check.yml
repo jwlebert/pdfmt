@@ -3,6 +3,9 @@ name: Compile and test gate
 on:
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   compile-test-clippy:
     runs-on: ubuntu-latest
